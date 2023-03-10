@@ -1,12 +1,38 @@
 const app=Vue.createApp({
     data(){
-        return{
+        return {
+            attri:'class',
             product:'Socks',
-            descripe:'A warm fuzzy pair of socks.',
-            image:'./ASSETS/images/socks_blue.jpg',
+            description:'A warm fuzzy pair of socks.',
+            image:'./images/socks_green.jpg',
             url:'https://cn.vuejs.org/',
-            instock:true,
-            onSale:true
+            count:10,
+            // rawHtml:'<span style="color: red ;border: 1px solid">This should be red.</span>',
+            inStock:false,
+            inventory:5,
+            onSale:true,
+            disable:false,
+            details:['50% cotton','30% wool','20% polyester'],
+            size:['S','M','L','XL'],
+            variants:[
+                {id:2234,color:'green',image:'./images/socks_green.jpg'},
+                {id:2235,color:'blue',image:'./images/socks_blue.jpg'}
+            ],
+            cart:0,
         }
-    }
+    },
+    methods:{
+        addToCart(){
+            this.cart+=1;
+        },
+        updateImage(image){
+            this.image=image;
+        },
+        minusToCart(){
+            if(this.cart>0){
+                this.cart-=1;
+            }
+        }
+    },
 });
+

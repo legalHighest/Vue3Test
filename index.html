@@ -4,41 +4,77 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue3</title>
-    <link rel="stylesheet" href="./styles.css">
+    <title>1-intro-to-vue3</title>
+    <link href="./styles.css" rel="stylesheet">
+   <style>
+    .list{
+        margin-left: 20px;
+        float: left;
+        border: 1px solid;
+        text-align: center;
+    }
+    .ht{
+        width: 100px;
+        height: 100px;
+        border: 1px solid;
+    }
 
-
+    .disabledButton {
+        background-color: #d8d8d8;
+        cursor: not-allowed;
+}
+   </style>
 </head>
 <body>
+    <div id="app">
+
+        <div class="nav-bar"></div>
+        <div class="cart">Cart({{cart}})</div>
+
+
+        <div class="product-display">
+            <div class="product-container">
+                <div class="product-image">
+                    <img :src="image" :class="{'out-of-stock-img': !inStock}">
+                   </div>
+
+                   <div class="product-info">
+                    <h1>{{product}}</h1>
+                    <p>{{description}}</p> 
+                    <a v-bind:href="url">Vue3官网</a>
+                    <p v-if="inStock">In Stock</p>
+                    <p v-else-if="inventory <=10&&inventory > 0">Almost sold out!</p>
+                    <p v-else>Out  of Stock</p>
+                    <p v-if="onSale">On sale</p> 
+
+                    <ul>
+                        <li v-for="detail in details">{{detail}}</li>
+                    </ul>
+
+                    <ul>
+                        <li v-for="item in size">{{item}}</li>
+                    </ul>
+                    <div v-for="variant in variants" 
+                    :key="variant.id" @mouseover="updateImage(variant.image)"
+                    class="color-circle" :style="{backgroundColor:variant.color}"></div>
+
+                    <button class="button" v-on:click="addToCart" 
+                    :class="{disabledButton:!inStock}" 
+                    :disabled="!inStock">Add to Cart</button>
+                    <button class="button" v-on:click="minusToCart">Remove Item</button>
+                   </div>
+                   
+            </div>
+        </div>   
+    </div>
+
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="./main.js"></script>
 
-
-    
-    <div id="app">
-        <h1>{{product}}</h1>
-        <p>{{descripe}}</p>
-
-        <div class="product-image">
-            <img :src="image">
-        </div>
-
-        <a :href="url">https://cn.vuejs.org/</a>
-
-
-        <p v-if="instock">In stock</p>
-        <p v-else>out of stock</p>
-
-        <p v-if="onSale">onSale</p>
-    </div>
-
-    
-
-
-    <!-- mount App(挂载app) -->
-    
-    <script>
-        const mountedApp=app.mount('#app')
-    </script>
+    <!-- mount App-->
+<script>
+    const mountedApp=app.mount('#app');
+     console.log(mountedApp.app);
+</script>
 </body>
 </html>
